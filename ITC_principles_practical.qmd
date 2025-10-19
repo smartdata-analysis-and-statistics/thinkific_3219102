@@ -1,0 +1,21 @@
+---
+title: "Principles of Indirect Treatment Comparisons"
+author: "Thomas Debray"
+format:
+  html:
+    toc: true
+    number-sections: false
+execute:
+  echo: false
+  message: false
+  warning: false
+---
+
+# Learning Objectives
+
+After completing this practical, learners will be able to:
+
+* Explain how indirect treatment comparisons (ITCs) extend traditional pairwise meta-analysis.
+* Describe the consistency assumption that links direct and indirect evidence.
+* Recognize when the consistency assumption may be violated and what this implies.
+* Construct a simple evidence network and interpret the implications for treatment comparisons.
