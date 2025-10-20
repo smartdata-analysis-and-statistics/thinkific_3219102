@@ -98,14 +98,14 @@ You should obtain approximately:
 df <- data.frame(
   Comparison = "Semaglutide vs Liraglutide (indirect)",
   EffectSize = est_indirect,
-  SE = formatC(se_indirect,2),
-  CI_lower = formatC(ci[1],2),
-  CI_upper = formatC(ci[2],2)
+  SE = format(se_indirect, nsmall = 2),
+  CI_lower = format(ci[1], nsmall = 2),
+  CI_upper = format(ci[2], nsmall = 2)
 )
 kable(df)
 ```
 
-This means that, based on indirect evidence through placebo, Semaglutide achieves about `r format(est_indirect, digits = 1)`% greater mean weight loss than Liraglutide.
+This means that, based on indirect evidence through placebo, Semaglutide achieves about `r format(est_indirect, nsmall = 1)`% greater mean weight loss than Liraglutide.
 
 We can fit the same analysis using the `multinma` package:
 
@@ -114,7 +114,8 @@ We can fit the same analysis using the `multinma` package:
 #| warning: false
 db_fit_FE <- nma(net, 
                  trt_effects = "fixed",
-                 link = "identity")
+                 link = "identity", 
+                 silent = TRUE)
 relative_effects(db_fit_FE, trt_ref = "Liraglutide")
 ```
 
