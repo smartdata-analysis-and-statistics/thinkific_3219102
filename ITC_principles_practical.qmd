@@ -129,23 +129,29 @@ db_fit_FE <- nma(net,
                  link = "identity", 
                  refresh = 0)
 rel_sum <- relative_effects(db_fit_FE, trt_ref = "Liraglutide")
+rel_tab <- rel_sum$summary %>%
+    as.data.frame() %>%
+    tibble::rownames_to_column("contrast")
 
 rel_tab %>%
-  select(.trtb, .trta, mean, sd, `2.5%`, `50%`, `97.5%`) %>%
-  mutate(
-    across(c(mean, sd, `2.5%`, `50%`, `97.5%`), ~ sprintf("%.2f", .x))
-  ) %>%
-  kable(
-    format = "html",
-    col.names = c("Treatment B", "Treatment A", "Mean", "SD", "2.5%", "Median", "97.5%"),
-    align = "l"  # left alignment for text, numeric columns auto-align right
-  ) %>%
-  kable_styling(
-    full_width = FALSE,
-    bootstrap_options = c("striped", "hover", "condensed"),
-    position = "center"
-  ) %>%
-  add_header_above(c(" " = 2, "Posterior summary" = 5))
+    mutate(
+        contrast = paste0(.trtb, " vs. ", .trta)  # merge treatment names
+    ) %>%
+    select(contrast, mean, sd, `2.5%`, `50%`, `97.5%`) %>%
+    mutate(
+        across(c(mean, sd, `2.5%`, `50%`, `97.5%`), ~ sprintf("%.2f", .x))
+    ) %>%
+    kable(
+        format = "html",
+        col.names = c("Contrast", "Mean", "SD", "2.5%", "Median", "97.5%"),
+        align = c("l", rep("r", 5))
+    ) %>%
+    kable_styling(
+        full_width = FALSE,
+        bootstrap_options = c("striped", "hover", "condensed"),
+        position = "center"
+    ) %>%
+    add_header_above(c(" " = 1, "Posterior Summary" = 5))
 ```
 
 ## Step 3. Mixed Treatment Comparisons
