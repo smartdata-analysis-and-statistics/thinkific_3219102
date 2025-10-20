@@ -11,11 +11,23 @@ execute:
   warning: false
 ---
 
-# Learning Objectives
+This exercise helps you **familiarize yourself with the principles of indirect and mixed treatment comparisons (MTCs)**.  
+You’ll use a simple, real-data-inspired example involving **Semaglutide**, **Liraglutide**, and **Placebo**, and visualize the treatment network using the `multinma` package in R.
 
-After completing this practical, learners will be able to:
+Although the data have been slightly simplified for illustration, the reported treatment effects are based on estimates published in  
+[*Nature Medicine* (2025)](https://www.nature.com/articles/s41591-025-03978-z)
 
-* Explain how indirect treatment comparisons (ITCs) extend traditional pairwise meta-analysis.
-* Describe the consistency assumption that links direct and indirect evidence.
-* Recognize when the consistency assumption may be violated and what this implies.
-* Construct a simple evidence network and interpret the implications for treatment comparisons.
+## 📊 Background
+
+In this example, two clinical trials each compared an active treatment with **Placebo**.  
+We’d like to understand how **Semaglutide** performs relative to **Liraglutide**, even though no head-to-head trial was conducted.
+
+| Comparison             | Effect Size | Error Variance | 95% CI (approx.)     |
+|-------------------------|-------------|----------------|----------------------|
+| Liraglutide vs Placebo  | 4.53        | 0.26           | (3.56, 5.55)         |
+| Semaglutide vs Placebo  | 10.02       | 1.78           | (7.40, 12.63)        |
+
+Each value represents the **mean percentage difference in total body weight loss** versus placebo.
+
+These effect sizes were derived from studies summarized in the Nature Medicine paper cited above.  
+We’ll now use them to estimate the **indirect comparison** between the two active drugs.
