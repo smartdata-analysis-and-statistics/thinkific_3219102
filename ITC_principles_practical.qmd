@@ -115,7 +115,7 @@ We can fit the same analysis using the `multinma` package:
 db_fit_FE <- nma(net, 
                  trt_effects = "fixed",
                  link = "identity", 
-                 silent = TRUE)
+                 refresh = 0)
 relative_effects(db_fit_FE, trt_ref = "Liraglutide")
 ```
 
