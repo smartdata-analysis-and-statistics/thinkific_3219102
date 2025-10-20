@@ -6,7 +6,6 @@ format:
     toc: true
     number-sections: false
 execute:
-  echo: false
   message: false
   warning: false
 ---
@@ -45,13 +44,13 @@ Let’s visualize how these two studies form a (simple) network of interventions
 library(multinma)
 library(tibble)
 
-# Define contrast-level data
+# Contrast-level AgD with a reference row per study (y = NA on Placebo)
 agd_contrast <- tribble(
-  ~studyn,    ~trtn,           ~diff,    ~se_diff,
-  "Study 1", "Placebo",    NA, NA,
-  "Study 1", "Liraglutide",    4.53, sqrt(0.26),
-  "Study 2", "Placebo",   NA, NA,
-  "Study 2", "Semaglutide",   10.02, sqrt(1.78)
+  ~studyn,   ~trtn,         ~diff,        ~se_diff,
+  "Study 1", "Placebo",        NA_real_,       NA_real_,
+  "Study 1", "Liraglutide",     4.53,      sqrt(0.26),
+  "Study 2", "Placebo",        NA_real_,       NA_real_,
+  "Study 2", "Semaglutide",    10.02,     sqrt(1.78)
 )
 
 net <- set_agd_contrast(agd_contrast,
@@ -63,6 +62,10 @@ net <- set_agd_contrast(agd_contrast,
 # Visualize
 plot(net, weight_edges = TRUE, weight_nodes = FALSE)
 ```
+In this network plot, we can see
+
+* Placebo is the common comparator
+* Liraglutide and Semaglutide are connected through Placebo
 
 ## Step 2. Estimating the Indirect Comparison
 
@@ -95,11 +98,33 @@ You should obtain approximately:
 df <- data.frame(
   Comparison = "Semaglutide vs Liraglutide (indirect)",
   EffectSize = est_indirect,
-  SE = se_indirect,
-  CI_lower = ci[1],
-  CI_upper = ci[2]
+  SE = formatC(se_indirect,2),
+  CI_lower = formatC(ci[1],2),
+  CI_upper = formatC(ci[2],2)
 )
 kable(df)
 ```
 
 This means that, based on indirect evidence through placebo, Semaglutide achieves about `r format(est_indirect, digits = 1)`% greater mean weight loss than Liraglutide.
+
+We can fit the same analysis using the `multinma` package:
+
+```{r}
+#| message: false
+#| warning: false
+db_fit_FE <- nma(net, 
+                 trt_effects = "fixed",
+                 link = "identity")
+relative_effects(db_fit_FE, trt_ref = "Liraglutide")
+```
+
+## Step 3. Mixed Treatment Comparisons
+
+Now that you have seen how two studies connect through a common comparator, we can extend the idea of an indirect comparison to a mixed treatment comparison.
+
+An MTC combines both **direct** and **indirect** evidence across a connected network of trials.  
+- *Direct evidence* comes from head-to-head trials comparing two treatments in the same study.  
+- *Indirect evidence* arises when two treatments are compared through a shared control (e.g., Placebo).  
+
+By "mixing" these sources, we obtain more precise estimates of relative effects across all treatments.
+
