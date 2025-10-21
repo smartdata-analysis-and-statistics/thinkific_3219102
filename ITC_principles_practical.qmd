@@ -311,6 +311,8 @@ data(Baker2009)
 ```
 ```{r}
 #| echo: false
+library(netmeta)
+data(Baker2009)
 kable(head(Baker2009))
 ```
 
@@ -347,9 +349,13 @@ plot(db_releff_RE, ref_line = 0)
 or_tiotropium <- exp(db_releff_RE$summary %>% filter(parameter == "d[Tiotropium]") %>% pull(mean))
 or_tiotropium_cil <- exp(db_releff_RE$summary %>% filter(parameter == "d[Tiotropium]") %>% pull(`2.5%`))
 or_tiotropium_ciu <- exp(db_releff_RE$summary %>% filter(parameter == "d[Tiotropium]") %>% pull(`97.5%`))
+
+or_bufo <- exp(db_releff_RE$summary %>% filter(parameter == "d[Budesonide+Formoterol]") %>% pull(mean))
+or_bufo_cil <- exp(db_releff_RE$summary %>% filter(parameter == "d[Budesonide+Formoterol]") %>% pull(`2.5%`))
+or_bufo_ciu <- exp(db_releff_RE$summary %>% filter(parameter == "d[Budesonide+Formoterol]") %>% pull(`97.5%`))
 ```
 
-Among monotherapies, tiotropium demonstrated the highest efficacy, with a pooled odds ratio of `r format(or_tiotropium, digits = 2, nsmall = 2)` (95% CrI: `r format(or_tiotropium_cil, digits = 2, nsmall = 2)` to `r format(or_tiotropium_ciu, digits = 2, nsmall = 2)`) versus placebo. Among combination ICS-LABA therapies, budesonide + formoterol showed the greatest efficacy, with a pooled OR of 0.66 (95% CrI: 0.50 to 0.90).
+Among monotherapies, tiotropium demonstrated the highest efficacy, with a pooled odds ratio of `r format(or_tiotropium, digits = 2, nsmall = 2)` (95% CrI: `r format(or_tiotropium_cil, digits = 2, nsmall = 2)` to `r format(or_tiotropium_ciu, digits = 2, nsmall = 2)`) versus placebo. Among combination ICS-LABA therapies, budesonide + formoterol showed the greatest efficacy, with a pooled OR of `r format(or_bufo, digits = 2, nsmall = 2)` (95% CrI: `r format(or_bufo_cil, digits = 2, nsmall = 2)` to `r format(or_bufo_ciu, digits = 2, nsmall = 2)`).
 
 
 # Session information
