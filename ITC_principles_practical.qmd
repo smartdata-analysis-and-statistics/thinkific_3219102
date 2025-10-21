@@ -360,7 +360,6 @@ In this network plot, we can see how the various treatments connect through mult
 ```{r}
 #| message: false
 #| warning: false
-#| eval: false
 fit_COPD <- nma(net, 
                 trt_effects = "random",
                 link = "logit", # Use logit-link function
