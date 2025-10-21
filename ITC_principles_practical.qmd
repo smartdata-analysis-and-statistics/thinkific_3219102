@@ -322,6 +322,7 @@ We can now visualize the treatment network:
 
 ```{r}
 #| warning: false
+#| eval: false
 net <- set_agd_arm(data = Baker2009,
                    study = study,
                    trt = treatment,
@@ -329,6 +330,30 @@ net <- set_agd_arm(data = Baker2009,
                    n = total)
 plot(net, weight_edges = TRUE, weight_nodes = TRUE)
 ```
+
+```{r}
+#| echo: false
+#| warning: false
+
+Baker2009 <- Baker2009 %>% mutate(
+  trtclass = ifelse(treatment %in% c("Fluticasone", "Budesonide"), "ICS",
+              ifelse(treatment %in% c("Salmeterol", "Formoterol"), "LABA",
+              ifelse(treatment %in% c("Fluticasone+Salmeterol", "Budesonide+Formoterol"), "ICS-LABA",
+              ifelse(treatment == "Tiotropium", "LAMA", "Placebo"))))
+)
+net <- set_agd_arm(data = Baker2009,
+                   study = study,
+                   trt = treatment,
+                   trt_class = trtclass,
+                   r = exac,
+                   n = total)
+plot(net, weight_edges = TRUE, weight_nodes = TRUE, show_trt_class = TRUE) +
+  ggplot2::theme(legend.position = "bottom",
+                 legend.box = "vertical",
+                 legend.margin = ggplot2::margin(0, 0, 0, 0),
+                 legend.spacing = ggplot2::unit(0.5, "lines"))
+```
+
 
 In this network plot, we can see how the various treatments connect through multiple studies, with Placebo serving as a common comparator. We can now use the same function calls as before to fit a network meta-analysis model and estimate relative treatment effects across all interventions. However, in this example we will use a **logit link** function, which is more appropriate for binary outcomes, and assume *random* treatment effects:
 
@@ -355,7 +380,7 @@ or_bufo_cil <- exp(db_releff_RE$summary %>% filter(parameter == "d[Budesonide+Fo
 or_bufo_ciu <- exp(db_releff_RE$summary %>% filter(parameter == "d[Budesonide+Formoterol]") %>% pull(`97.5%`))
 ```
 
-Among monotherapies, tiotropium demonstrated the highest efficacy, with a pooled odds ratio of `r format(or_tiotropium, digits = 2, nsmall = 2)` (95% CrI: `r format(or_tiotropium_cil, digits = 2, nsmall = 2)` to `r format(or_tiotropium_ciu, digits = 2, nsmall = 2)`) versus placebo. Among combination ICS-LABA therapies, budesonide + formoterol showed the greatest efficacy, with a pooled OR of `r format(or_bufo, digits = 2, nsmall = 2)` (95% CrI: `r format(or_bufo_cil, digits = 2, nsmall = 2)` to `r format(or_bufo_ciu, digits = 2, nsmall = 2)`).
+Among monotherapies, tiotropium demonstrated the highest efficacy, with a pooled odds ratio of `r format(or_tiotropium, digits = 2, nsmall = 2)` (95% CrI: `r format(or_tiotropium_cil, digits = 2, nsmall = 2)` to `r format(or_tiotropium_ciu, digits = 2, nsmall = 2)`) versus placebo. Among combination therapies, budesonide + formoterol showed the greatest efficacy, with a pooled OR of `r format(or_bufo, digits = 2, nsmall = 2)` (95% CrI: `r format(or_bufo_cil, digits = 2, nsmall = 2)` to `r format(or_bufo_ciu, digits = 2, nsmall = 2)`).
 
 
 # Session information
