@@ -4,7 +4,7 @@ author: "Thomas Debray"
 format:
   html:
     toc: true
-    number-sections: false
+    number-sections: true
 execute:
   message: false
   warning: false
@@ -18,6 +18,7 @@ library(knitr)
 library(kableExtra)
 ```
 
+# Getting Started
 
 ## About this Practical
 
@@ -57,6 +58,8 @@ In this example, two clinical trials each compared an active treatment with **Pl
 Each effect size represents the mean percentage difference in total body weight loss versus placebo. 
 
 These effect sizes were derived from studies summarized in the Nature Medicine paper cited above.  We’ll now use them to estimate the **indirect comparison** between the two active drugs.
+
+# Hands-on Analysis
 
 ## Step 1. Visualizing the Treatment Network
 Let’s visualize how these two studies form a (simple) network of interventions.
@@ -243,11 +246,11 @@ relative_effects(db_fit_FE_mixed, trt_ref = "Liraglutide")
 #| message: false
 #| warning: false
 #| echo: false
-db_fit_FE <- nma(net, 
+db_fit_FE_mixed <- nma(net, 
                  trt_effects = "fixed",
                  link = "identity", 
                  refresh = 0)
-rel_sum <- relative_effects(db_fit_FE, trt_ref = "Liraglutide")
+rel_sum <- relative_effects(db_fit_FE_mixed, trt_ref = "Liraglutide")
 rel_tab <- rel_sum$summary %>%
     as.data.frame() %>%
     tibble::rownames_to_column("contrast")
@@ -273,11 +276,30 @@ rel_tab %>%
     add_header_above(c(" " = 1, "Posterior Summary" = 5))
 ```
 
-## Session information
+We can also rank the treatments included in this example according to their estimated effectiveness:
+
+```{r}
+#| message: false
+#| warning: false
+db_rankprobs <- posterior_rank_probs(db_fit_FE_mixed, lower_better = FALSE)
+plot(db_rankprobs)
+```
+
+In this figure, we can see that Semaglutide has the highest probability of being the most effective treatment for weight loss, followed by Liraglutide and Placebo. These rankings apply only to the subset of treatments analyzed in this simplified example, not to the full network of interventions reported in the Nature Medicine publication.
+
+
+# Going Further
+
+## Extending Network Meta-analysis
+This section is under development. Please check back later for an applied example.
+
+
+# Session information
 
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
-sessionInfo()
+library(sessioninfo)
+sessioninfo::session_info()
 ```
