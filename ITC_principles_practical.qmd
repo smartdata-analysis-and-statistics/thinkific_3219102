@@ -301,8 +301,55 @@ It is based on results from a systematic review of randomized controlled trials 
 
 The primary outcome, occurrence of one or more episodes of COPD exacerbation, is binary (yes / no). Five monotherapies -- fluticasone, budesonide, salmeterol, formoterol, and tiotropium -- and two fixed combinations -- fluticasone + salmeterol and budesonide + formoterol -- were compared against placebo. The data are available from the R package `netmeta`:
 
+```{r}
+#| message: false
+#| warning: false
+#| eval: false
+# install.packages("netmeta)
+library(netmeta)
+data(Baker2009)
+```
+```{r}
+#| echo: false
+kable(head(Baker2009))
+```
 
+Note that in this example we have **arm-level data** rather than contrast-level data. Each row corresponds to a *treatment arm* within a study, including the number of participants and the number of events for that arm. In contrast, the previous examples used **contrast-level data**, where each row summarized the *difference in outcomes* between two treatments within the same study.  Both data structures can be analyzed in `multinma`, but arm-level data (as in the `Baker2009` dataset) are more common in published network meta-analyses and allow for greater modeling flexibility.
 
+We can now visualize the treatment network:
+
+```{r}
+#| warning: false
+net <- set_agd_arm(data = Baker2009,
+                   study = study,
+                   trt = treatment,
+                   r = exac,
+                   n = total)
+plot(net, weight_edges = TRUE, weight_nodes = TRUE)
+```
+
+In this network plot, we can see how the various treatments connect through multiple studies, with Placebo serving as a common comparator. We can now use the same function calls as before to fit a network meta-analysis model and estimate relative treatment effects across all interventions. However, in this example we will use a **logit link** function, which is more appropriate for binary outcomes, and assume *random* treatment effects:
+
+```{r}
+#| message: false
+#| warning: false
+#| eval: false
+fit_COPD <- nma(net, 
+                trt_effects = "random",
+                link = "logit", # Use logit-link function
+                refresh = 0)    # Suppress MCMC output
+db_releff_RE <- relative_effects(fit_COPD, trt_ref = "Placebo")
+plot(db_releff_RE, ref_line = 0)
+```
+
+```{r}
+#| echo: false
+or_tiotropium <- exp(db_releff_RE$summary %>% filter(parameter == "d[Tiotropium]") %>% pull(mean))
+or_tiotropium_cil <- exp(db_releff_RE$summary %>% filter(parameter == "d[Tiotropium]") %>% pull(`2.5%`))
+or_tiotropium_ciu <- exp(db_releff_RE$summary %>% filter(parameter == "d[Tiotropium]") %>% pull(`97.5%`))
+```
+
+Among monotherapies, tiotropium demonstrated the highest efficacy, with a pooled odds ratio of `r format(or_tiotropium, digits = 2, nsmall = 2)` (95% CrI: `r format(or_tiotropium_cil, digits = 2, nsmall = 2)` to `r format(or_tiotropium_ciu, digits = 2, nsmall = 2)`) versus placebo. Among combination ICS-LABA therapies, budesonide + formoterol showed the greatest efficacy, with a pooled OR of 0.66 (95% CrI: 0.50 to 0.90).
 
 
 # Session information
