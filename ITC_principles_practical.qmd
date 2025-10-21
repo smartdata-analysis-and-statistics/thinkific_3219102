@@ -28,10 +28,10 @@ Although the data have been slightly simplified for illustration, the reported t
 In this example, two clinical trials each compared an active treatment with **Placebo**.  We’d like to understand how **Semaglutide** performs relative to **Liraglutide**, even though no head-to-head trial was conducted.  We derived the following **contrast-level data** from the published trials:
 
 
-| Comparison             | Effect Size | Error Variance | 95% CI (approx.)     |
+| Comparison             | Effect Size | Error Variance | 95% CI     |
 |-------------------------|-------------|----------------|----------------------|
-| Liraglutide vs Placebo  | 4.53        | 0.26           | (3.56, 5.55)         |
-| Semaglutide vs Placebo  | 10.02       | 1.78           | (7.40, 12.63)        |
+| Liraglutide vs Placebo  | 4.53        | 0.26           | (3.56; 5.55)         |
+| Semaglutide vs Placebo  | 10.02       | 1.78           | (7.40; 12.63)        |
 
 Each effect size represents the mean percentage difference in total body weight loss versus placebo. 
 
@@ -93,23 +93,9 @@ se_indirect  <- sqrt(var_indirect)
 ci <- est_indirect + qnorm(c(0.025, 0.975)) * se_indirect
 ```
 
-You should obtain approximately:
+You should obtain an effect size of approximately `r est_indirect` in favor of Semaglutide, with a 95% confidence interval of (`r format(ci[1], digits = 2, nsmall = 2)`, `r format(ci[2], digits = 2, nsmall = 2)`). This means that, based on indirect evidence through placebo, Semaglutide achieves about `r format(est_indirect, digits = 2, nsmall = 2)`% greater mean weight loss than Liraglutide.
 
-```{r}
-#| echo: false
-df <- data.frame(
-  Comparison = "Semaglutide vs Liraglutide (indirect)",
-  EffectSize = est_indirect,
-  SE = format(se_indirect, digits = 2, nsmall = 2),
-  CI_lower = format(ci[1], digits = 2, nsmall = 2),
-  CI_upper = format(ci[2], digits = 2, nsmall = 2)
-)
-kable(df)
-```
-
-This means that, based on indirect evidence through placebo, Semaglutide achieves about `r format(est_indirect, digits = 1, nsmall = 1)`% greater mean weight loss than Liraglutide.
-
-We can fit the same analysis using the `multinma` package:
+We can fit the same analysis using the `multinma` package, which adopts a Bayesian estimation framework:
 
 ```{r}
 #| message: false
@@ -124,6 +110,7 @@ relative_effects(db_fit_FE, trt_ref = "Liraglutide")
 ```{r}
 #| message: false
 #| warning: false
+#| echo: false
 db_fit_FE <- nma(net, 
                  trt_effects = "fixed",
                  link = "identity", 
@@ -154,13 +141,25 @@ rel_tab %>%
     add_header_above(c(" " = 1, "Posterior Summary" = 5))
 ```
 
+
+
 ## Step 3. Mixed Treatment Comparisons
 
-Now that you have seen how two studies connect through a common comparator, we can extend the idea of an indirect comparison to a mixed treatment comparison.
+Now that you have seen how two studies connect through a common comparator, we can extend the idea of an indirect comparison to a mixed treatment comparison (MTC).
 
 An MTC combines both **direct** and **indirect** evidence across a connected network of trials.  
 - *Direct evidence* comes from head-to-head trials comparing two treatments in the same study.  
 - *Indirect evidence* arises when two treatments are compared through a shared control (e.g., Placebo).  
 
 By "mixing" these sources, we obtain more precise estimates of relative effects across all treatments.
+
+Consider we now have a third study that directly compares **Semaglutide** and **Liraglutide**:
+
+| Comparison                  | Effect Size | Error Variance | 95% CI               |
+|-----------------------------|-------------|----------------|----------------------|
+| Liraglutide vs Placebo      | 4.53        | 0.26           | (3.56; 5.55)         |
+| Semaglutide vs Placebo      | 10.02       | 1.78           | (7.40; 12.63)        |
+| Semaglutide vs Liraglutide  | 9.40        | 1.65           | (6.88; 11.91)        |
+
+We can update our contrast-level data to include this new direct comparison:
 
