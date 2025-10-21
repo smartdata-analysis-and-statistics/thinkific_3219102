@@ -163,3 +163,92 @@ Consider we now have a third study that directly compares **Semaglutide** and **
 
 We can update our contrast-level data to include this new direct comparison:
 
+$\hat{\Delta}_{A,B, \text{mixed}} = \left(\frac{\hat{\Delta}_{A,B, \text{direct}}}{\text{Var}(\hat{\Delta}_{A,B, \text{direct}})} + \frac{\hat{\Delta}_{A,B, \text{indirect}}}{\text{Var}(\hat{\Delta}_{A,B, \text{indirect}})}\right)  \left(\frac{1}{\text{Var}(\hat{\Delta}_{A,B, \text{direct}})} + \frac{1}{\text{Var}(\hat{\Delta}_{A,B, \text{indirect}})}\right)^{-1}$
+
+$\text{Var}(\hat{\Delta}_{A,B, \text{mixed}}) =  \left(\frac{1}{\text{Var}(\hat{\Delta}_{A,B, \text{direct}})} + \frac{1}{\text{Var}(\hat{\Delta}_{A,B, \text{indirect}})}\right)^{-1}$
+
+In R, we can derive the mixed effect as follows:
+
+```{r}
+# New direct comparison data
+direct_comp <- list(est = 9.40, var = 1.65)
+
+# Mixed treatment comparison
+est_mixed <- (direct_comp$est / direct_comp$var + est_indirect / var_indirect) /
+               (1 / direct_comp$var + 1 / var_indirect)
+var_mixed <- 1 / (1 / direct_comp$var + 1 / var_indirect)
+se_mixed <- sqrt(var_mixed)
+
+# 95% Confidence Interval
+ci_mixed <- est_mixed + qnorm(c(0.025, 0.975)) * se_mixed
+```
+
+You should obtain an effect size of approximately `r est_mixed` in favor of Semaglutide, with a 95% confidence interval of (`r format(ci_mixed[1], digits = 2, nsmall = 2)`, `r format(ci_mixed[2], digits = 2, nsmall = 2)`). 
+
+We can fit the same analysis using the `multinma` package:
+
+```{r}
+#| message: false
+#| warning: false
+# Updated contrast-level AgD including direct comparison
+agd_contrast <- tribble(
+  ~studyn,   ~trtn,         ~diff,        ~se_diff,
+  "Study 1", "Placebo",        NA_real_,       NA_real_,
+  "Study 1", "Liraglutide",     4.53,      sqrt(0.26),
+  "Study 2", "Placebo",        NA_real_,       NA_real_,
+  "Study 2", "Semaglutide",    10.02,     sqrt(1.78),
+  "Study 3", "Liraglutide",     NA_real_,       NA_real_,
+  "Study 3", "Semaglutide",     9.40,      sqrt(1.65)
+)
+
+net <- set_agd_contrast(agd_contrast,
+                 study = studyn,
+                 trt = trtn,
+                 y = diff,
+                 se = se_diff)
+```
+
+
+```{r}
+#| message: false
+#| warning: false
+#| eval: false
+db_fit_FE_mixed <- nma(net, 
+                       trt_effects = "fixed",
+                       link = "identity")
+relative_effects(db_fit_FE_mixed, trt_ref = "Liraglutide")
+```
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+db_fit_FE <- nma(net, 
+                 trt_effects = "fixed",
+                 link = "identity", 
+                 refresh = 0)
+rel_sum <- relative_effects(db_fit_FE, trt_ref = "Liraglutide")
+rel_tab <- rel_sum$summary %>%
+    as.data.frame() %>%
+    tibble::rownames_to_column("contrast")
+
+rel_tab %>%
+    mutate(
+        contrast = paste0(.trtb, " vs. ", .trta)  # merge treatment names
+    ) %>%
+    select(contrast, mean, sd, `2.5%`, `50%`, `97.5%`) %>%
+    mutate(
+        across(c(mean, sd, `2.5%`, `50%`, `97.5%`), ~ sprintf("%.2f", .x))
+    ) %>%
+    kable(
+        format = "html",
+        col.names = c("Contrast", "Mean", "SD", "2.5%", "Median", "97.5%"),
+        align = c("l", rep("r", 5))
+    ) %>%
+    kable_styling(
+        full_width = FALSE,
+        bootstrap_options = c("striped", "hover", "condensed"),
+        position = "center"
+    ) %>%
+    add_header_above(c(" " = 1, "Posterior Summary" = 5))
+```
