@@ -18,10 +18,31 @@ library(knitr)
 library(kableExtra)
 ```
 
+
+## About this Practical
+
+This practical is designed for R, an open-source statistical programming environment widely used for data analysis and evidence synthesis. All examples can be reproduced on any computer with R (≥ `r paste0(R.Version()$major, ".", R.Version()$minor)`) and the following packages installed: `multinma`, `dplyr`, and `tibble`.
+
+If you are new to R:
+
+*	Download and install R from https://cran.r-project.org.
+*	(Optional) Install RStudio for an easier coding interface: https://posit.co/download/rstudio/.
+*	You can install all required packages with:
+	
+```{r}
+#| eval: false
+install.packages(c("multinma", "dplyr", "tibble"))
+```
+
+If running this practical on a shared or institutional computer, ensure these packages are available before starting.
+No special configuration or external data files are needed.
+
+## Introduction
 This exercise helps you familiarize yourself with the principles of indirect and mixed treatment comparisons.  
 You’ll use a simple, real-data-inspired example involving **Semaglutide**, **Liraglutide**, and **Placebo**, and visualize the treatment network using the `multinma` package in R.
 
 Although the data have been slightly simplified for illustration, the reported treatment effects are based on estimates published in [*Nature Medicine* (2025)](https://www.nature.com/articles/s41591-025-03978-z) 
+
 
 ## Background
 
@@ -42,7 +63,6 @@ Let’s visualize how these two studies form a (simple) network of interventions
 
 ```{r}
 #| message: false
-# install.packages("multinma")  # if not already installed
 library(multinma)
 library(tibble)
 
@@ -183,7 +203,7 @@ se_mixed <- sqrt(var_mixed)
 ci_mixed <- est_mixed + qnorm(c(0.025, 0.975)) * se_mixed
 ```
 
-You should obtain an effect size of approximately `r est_mixed` in favor of Semaglutide, with a 95% confidence interval of (`r format(ci_mixed[1], digits = 2, nsmall = 2)`, `r format(ci_mixed[2], digits = 2, nsmall = 2)`). 
+You should obtain an effect size of approximately `r format(est_mixed, digits = 2, nsmall = 2)` in favor of Semaglutide, with a 95% confidence interval of (`r format(ci_mixed[1], digits = 2, nsmall = 2)`; `r format(ci_mixed[2], digits = 2, nsmall = 2)`). 
 
 We can fit the same analysis using the `multinma` package:
 
@@ -251,4 +271,13 @@ rel_tab %>%
         position = "center"
     ) %>%
     add_header_above(c(" " = 1, "Posterior Summary" = 5))
+```
+
+## Session information
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+sessionInfo()
 ```
