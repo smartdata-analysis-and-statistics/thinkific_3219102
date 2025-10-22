@@ -292,8 +292,7 @@ In this figure, we can see that Semaglutide has the highest probability of being
 # Going Further
 
 ## Extending MTC to Network Meta-analysis
-We can extend the principles of mixed treatment comparisons to a full network meta-analysis (NMA) by incorporating multiple treatments and studies.
-An NMA allows us to estimate relative effects across a connected network of interventions, even when some treatments have not been directly compared in head-to-head trials.
+We can extend the principles of mixed treatment comparisons to a full network meta-analysis (NMA) by incorporating multiple treatments and studies. An NMA allows us to estimate relative effects across a connected network of interventions, even when some treatments have not been directly compared in head-to-head trials.
 
 This example is discussed in greater detail in our upcoming book chapter, **Principles of meta-analysis and
 indirect treatment comparisons** [@debray_principles_2025].
