@@ -47,7 +47,7 @@ covid <- covid %>% mutate(
 ```
 
 ```{r}
-#| echo: true
+#| echo: false
 #| message: false
 #| warning: false
 library(kableExtra)
@@ -90,5 +90,15 @@ nma_model <- nma(
   prior_het = half_normal(scale = 5),
   refresh = 0
 )
+```
+
+We can visualize the relative treatment effects estimated by the model.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+db_releff <- relative_effects(nma_model, trt_ref = "STD")
+plot(db_releff, ref_line = 0)
 ```
 
