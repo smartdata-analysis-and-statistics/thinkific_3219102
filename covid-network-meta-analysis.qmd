@@ -1,0 +1,73 @@
+---
+title: "Comparative Effectiveness of Treatments for COVID-19: A Network Meta-Analysis Example"
+author: "Thomas Debray"
+format:
+  html:
+    toc: true
+    number-sections: true
+execute:
+  message: false
+  warning: false
+bibliography: 'bibliography.bib'
+---
+
+## Overview
+This vignette reproduces the main analyses discussed in the book chapter "Principles of meta-analysis and indirect treatment comparisons" [@debray_principles_2025].
+
+We focus on a case study assessing the comparative effectiveness of remdesivir and tocilizumab in hospitalized COVID-19 patients, using data synthesized from 21 randomized trials.
+
+## Data Source
+
+Trials were identified from two published network meta-analyses [@selvarajan_efficacy_2022; @siemieniuk_drug_2020], the COVID-NMA Initiative [Covid-NMA.com], and [clinicaltrials.gov].
+
+Inclusion criteria were:
+
+* hospitalized COVID-19 patients,
+* interventions: remdesivir or tocilizumab,
+* comparator: placebo or standard of care,
+* short-term mortality outcome available,
+* peer-reviewed publication.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+library(dplyr)
+
+covid <- readRDS(file.path("data","covid.rds"))
+
+# Define abbreviations
+covid <- covid %>% mutate(
+  trt = case_when(
+    trtn == "Remdesivir" ~ "REM",
+    trtn == "Tocilizumab" ~ "TOC",
+    trtn == "Standard of care" ~ "STD"
+  )
+)
+```
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+library(kableExtra)
+kable(head(covid))
+```
+
+## Setting up the Network
+
+We first define the network of interventions and visualize the geometry of available evidence.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+library(multinma)
+net <- set_agd_arm(data = covid,
+                   study = studlab,
+                   trt = trt,
+                   r = events,
+                   n = n)
+plot(net, weight_edges = TRUE, weight_nodes = TRUE)  +
+    theme(legend.position = "none")
+```
