@@ -63,11 +63,32 @@ We first define the network of interventions and visualize the geometry of avail
 #| message: false
 #| warning: false
 library(multinma)
+library(ggplot2)
+
 net <- set_agd_arm(data = covid,
                    study = studlab,
                    trt = trt,
                    r = events,
                    n = n)
+
 plot(net, weight_edges = TRUE, weight_nodes = TRUE)  +
     theme(legend.position = "none")
 ```
+
+## Random-Effects Network Meta-Analysis
+
+Fit a random-effects model using the binomial likelihood with logit link. We use vague priors for heterogeneity and relative effects.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+nma_model <- nma(
+  net,
+  trt_effects = "random",
+  prior_trt = normal(scale = 10),
+  prior_het = half_normal(scale = 5),
+  refresh = 0
+)
+```
+
