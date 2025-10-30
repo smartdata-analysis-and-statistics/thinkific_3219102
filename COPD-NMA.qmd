@@ -132,3 +132,32 @@ tau_inconsistency <- summary(nma_inconsistency)$summary %>%
 
 We find the following estimate for tau, the between-study standard deviation: `r round(tau_inconsistency, 3)`. The DIC for this model is `r round(dic_inconsistency$dic, 1)`.
 
+We can compare the residual deviance in the consistency and UME models as follows:
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| label: fig-resdev
+#| fig-cap: "Comparison of study-level residual deviance contributions between the consistency and UME models."
+# Extract residual deviance contributions from both models
+resdev_cons <- dic_consistency$pointwise$agd_arm %>%
+  select(.study, .trt, resdev_cons = resdev)
+resdev_ume <- dic_inconsistency$pointwise$agd_arm %>%
+  select(.study, .trt, resdev_ume = resdev)
+
+# Merge by study and treatment
+resdev_joined <- full_join(resdev_cons, resdev_ume, 
+                           by = c(".study", ".trt"))
+
+# Plot comparison
+ggplot(resdev_joined, aes(x = resdev_cons, y = resdev_ume)) +
+  geom_abline(intercept = 0, slope = 1, linetype = "solid", color = "grey50") +
+  geom_point(size = 2) +
+  coord_equal() +
+  theme_minimal(base_size = 12) +
+  labs(
+    x = "Residual Deviance (Consistency model)",
+    y = "Residual Deviance (UME model)"
+  )
+```
