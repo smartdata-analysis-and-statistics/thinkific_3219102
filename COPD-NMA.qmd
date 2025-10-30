@@ -18,3 +18,38 @@ This vignette reproduces the main analyses discussed in the book chapter "Princi
 Here, we focus on a case study evaluating the comparative effectiveness of maintenance inhaled therapies for chronic obstructive pulmonary disease (COPD).
 
 The example is based on the systematic review by Baker et al. [@baker_pharmacologic_2009], which identified 39 randomized controlled trials including 28,232 patients. These trials compared long-acting β₂-agonists (LABAs), tiotropium (TIO), inhaled corticosteroids (ICS), and combination ICS–LABA therapies with respect to exacerbation risk. The corresponding treatment network contains multiple closed loops, enabling both direct and indirect treatment comparisons. Unlike the COVID-19 example, this network provides an opportunity to assess local inconsistency across overlapping comparisons and to explore sources of heterogeneity and bias within a richer evidence structure.
+
+## Data Source
+
+Trials were identified through a systematic literature search of the following databases: MEDLINE (1950 -- October 2007), EMBASE (1990 -- October 2007), CINAHL (1982 -- October 2007), the Cochrane Central Register of Controlled Trials (third quarter 2007), as well as Web of Science (1994 -- October 2007).
+
+Inclusion criteria were:
+
+* Randomized and controlled design (placebo or active comparator).
+* Study population consisting of patients with chronic obstructive pulmonary disease (COPD).
+* Evaluation of at least one of the following COPD drug classes:
+  * Inhaled corticosteroids (ICS)
+  * Tiotropium (TIO)
+  * Long-acting β₂-agonists (LABAs)
+  * Combination ICS–LABA therapy
+* Reporting of outcomes related to COPD exacerbation frequency or mortality.
+	
+Data are available from the R package `netmeta`:
+
+```{r}
+#| message: false
+library(netmeta)
+data(Baker2009)
+```
+
+```{r}
+#| echo: false
+library(kableExtra)
+kable(head(Baker2009))
+```
+
+The primary outcome was the occurrence of one or more episodes of COPD exacerbation, recorded as a binary variable (yes/no).
+The network compares five single-agent treatments—fluticasone, budesonide, salmeterol, formoterol, and tiotropium—and two combination therapies (fluticasone + salmeterol and budesonide + formoterol) against placebo.
+Importantly, the original authors treated the combination therapies as distinct interventions rather than decomposing them into their individual components.
+
+
