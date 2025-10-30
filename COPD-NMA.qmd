@@ -130,9 +130,9 @@ tau_inconsistency <- summary(nma_inconsistency)$summary %>%
   pull(mean)
 ```
 
-We find the following estimate for tau, the between-study standard deviation: `r round(tau_inconsistency, 3)`. The DIC for this model is `r round(dic_inconsistency$dic, 1)`.
+We estimated the between-study heterogeneity parameter, $\tau$, to be `r round(tau_inconsistency, 3)`. For the same model, the Deviance Information Criterion (DIC) was `r round(dic_inconsistency$dic, 1)`, providing an overall measure of model fit that balances goodness-of-fit and model complexity.
 
-We can compare the residual deviance in the consistency and UME models as follows:
+To further explore model fit and potential inconsistency, we compared the residual deviance contributions from the consistency and UME models. Each point in the plot below represents the contribution of a study–treatment arm to the overall residual deviance. Points lying below the diagonal indicate observations that are better explained under the UME (inconsistent) model, suggesting potential sources of inconsistency.
 
 ```{r}
 #| echo: true
@@ -161,3 +161,17 @@ ggplot(resdev_joined, aes(x = resdev_cons, y = resdev_ume)) +
     y = "Residual Deviance (UME model)"
   )
 ```
+
+Finally, we can identify data points with substantial differences in residual deviance between the two models:
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+resdev_joined %>%
+  filter(abs(resdev_cons - resdev_ume) > 1)
+```
+
+The results indicate that most studies fit both models similarly, with only the van Noord (2005) study -- specifically the Tiotropium and Formoterol arms -- showing improved fit under the UME model. This pattern points to possible local inconsistency associated with that study.
+
