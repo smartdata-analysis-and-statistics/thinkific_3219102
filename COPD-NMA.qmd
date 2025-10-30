@@ -76,7 +76,7 @@ plot(net, weight_edges = TRUE, weight_nodes = TRUE)  +
 
 ## Random-Effects Network Meta-Analysis
 
-We first fit a random-effects model using the binomial likelihood with logit link. We use vague priors for heterogeneity and relative effects.
+We first fit a random-effects model using the binomial likelihood with logit link. We use weakly informative priors for heterogeneity and relative effects.
 
 ```{r}
 #| echo: true
@@ -87,22 +87,11 @@ library(dplyr)
 nma_consistency <- nma(
   net,
   trt_effects = "random",
-  prior_trt = normal(scale = 10),
-  prior_het = half_normal(scale = 5),
+  prior_trt = normal(scale = 5),
+  prior_het = half_normal(scale = 2.5),
   refresh = 0
 )
-
-# Extract DIC
-dic_consistency <- dic(nma_consistency)
-
-# Extract tau (posterior mean)
-tau_consistency <- summary(nma_consistency)$summary %>%
-  as.data.frame() %>%
-  filter(parameter == "tau") %>%
-  pull(mean)
 ```
-
-We find the following estimate for tau, the between-study standard deviation: `r round(tau_consistency, 3)`. The DIC for this model is `r round(dic_consistency$dic, 1)`.
 
 To complement the relative treatment effects, we summarize the probability that each treatment ranks among the best options in reducing COPD exacerbations.
 Cumulative rank probabilities provide a visual summary of the likelihood that a given treatment occupies each possible rank position, with higher curves indicating a higher probability of superior performance.
@@ -120,6 +109,23 @@ db_rankprobs <- posterior_rank_probs(nma_consistency,
 plot(db_rankprobs)
 ```
 
+To complement the ranking results, we next assess the overall model fit and between‐study heterogeneity. Specifically, we extract the Deviance Information Criterion (DIC) and the estimated between‐study standard deviation ($\tau$) from the consistency model, which will later be compared with those from the UME model.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+# Extract DIC
+dic_consistency <- dic(nma_consistency)
+
+# Extract tau (posterior mean)
+tau_consistency <- summary(nma_consistency)$summary %>%
+  as.data.frame() %>%
+  filter(parameter == "tau") %>%
+  pull(mean)
+```
+
+We find the following estimate for $\tau$, the between-study standard deviation: `r round(tau_consistency, 3)`. The DIC for this model is `r round(dic_consistency$dic, 1)`.
 
 ## Assessing Inconsistency
 To assess local inconsistency, we apply the node-splitting approach to each comparison with both direct and indirect evidence.
@@ -136,7 +142,14 @@ nma_inconsistency <- nma(
   prior_het = half_normal(scale = 2.5),
   refresh = 0
 )
+```
 
+We can again assess the overall model fit and between‐study heterogeneity, and compare it to the resuls from the consistency model:
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
 # Extract DIC
 dic_inconsistency <- dic(nma_inconsistency)
 
@@ -145,9 +158,21 @@ tau_inconsistency <- summary(nma_inconsistency)$summary %>%
   as.data.frame() %>%
   filter(parameter == "tau") %>%
   pull(mean)
+
+# Combine into a comparison data frame
+model_comparison <- tibble::tibble(
+  Model = c("Consistency", "Inconsistency (UME)"),
+  Tau   = c(tau_consistency, tau_inconsistency),
+  DIC   = c(dic_consistency$dic, dic_inconsistency$dic)
+)
 ```
 
-We estimated the between-study heterogeneity parameter, $\tau$, to be `r round(tau_inconsistency, 3)`. For the same model, the Deviance Information Criterion (DIC) was `r round(dic_inconsistency$dic, 1)`, providing an overall measure of model fit that balances goodness-of-fit and model complexity.
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+kable(model_comparison)
+```
 
 To further explore model fit and potential inconsistency, we compared the residual deviance contributions from the consistency and UME models. Each point in the plot below represents the contribution of a study–treatment arm to the overall residual deviance. Points lying below the diagonal indicate observations that are better explained under the UME (inconsistent) model, suggesting potential sources of inconsistency.
 
@@ -187,7 +212,8 @@ Finally, we can identify data points with substantial differences in residual de
 #| warning: false
 
 resdev_joined %>%
-  filter(abs(resdev_cons - resdev_ume) > 1)
+  filter(abs(resdev_cons - resdev_ume) > 1) %>%
+  as.data.frame()
 ```
 
 The results indicate that most studies fit both models similarly, with only the van Noord (2005) study -- specifically the Tiotropium and Formoterol arms -- showing improved fit under the UME model. This pattern points to possible local inconsistency associated with that study.
