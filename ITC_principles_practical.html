@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Thomas Debray">
+
+<title>Principles of Indirect Treatment Comparisons – Introduction to Indirect Treatment Comparisons Practicals</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0b37c64f34216b628666a8dac638b53b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started"><span class="header-section-number">1</span> Getting Started</a>
+  <ul class="collapse">
+  <li><a href="#about-this-practical" id="toc-about-this-practical" class="nav-link" data-scroll-target="#about-this-practical"><span class="header-section-number">1.1</span> About this Practical</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">1.2</span> Introduction</a></li>
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background"><span class="header-section-number">1.3</span> Background</a></li>
+  </ul></li>
+  <li><a href="#hands-on-analysis" id="toc-hands-on-analysis" class="nav-link" data-scroll-target="#hands-on-analysis"><span class="header-section-number">2</span> Hands-on Analysis</a>
+  <ul class="collapse">
+  <li><a href="#step-1.-visualizing-the-treatment-network" id="toc-step-1.-visualizing-the-treatment-network" class="nav-link" data-scroll-target="#step-1.-visualizing-the-treatment-network"><span class="header-section-number">2.1</span> Step 1. Visualizing the Treatment Network</a></li>
+  <li><a href="#step-2.-estimating-the-indirect-comparison" id="toc-step-2.-estimating-the-indirect-comparison" class="nav-link" data-scroll-target="#step-2.-estimating-the-indirect-comparison"><span class="header-section-number">2.2</span> Step 2. Estimating the Indirect Comparison</a></li>
+  <li><a href="#step-3.-mixed-treatment-comparisons" id="toc-step-3.-mixed-treatment-comparisons" class="nav-link" data-scroll-target="#step-3.-mixed-treatment-comparisons"><span class="header-section-number">2.3</span> Step 3. Mixed Treatment Comparisons</a></li>
+  </ul></li>
+  <li><a href="#going-further" id="toc-going-further" class="nav-link" data-scroll-target="#going-further"><span class="header-section-number">3</span> Going Further</a>
+  <ul class="collapse">
+  <li><a href="#extending-mtc-to-network-meta-analysis" id="toc-extending-mtc-to-network-meta-analysis" class="nav-link" data-scroll-target="#extending-mtc-to-network-meta-analysis"><span class="header-section-number">3.1</span> Extending MTC to Network Meta-analysis</a></li>
+  </ul></li>
+  <li><a href="#session-information" id="toc-session-information" class="nav-link" data-scroll-target="#session-information"><span class="header-section-number">4</span> Session information</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Principles of Indirect Treatment Comparisons</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Thomas Debray </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="getting-started" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Getting Started</h1>
+<section id="about-this-practical" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="about-this-practical"><span class="header-section-number">1.1</span> About this Practical</h2>
+<p>This practical is designed for R, an open-source statistical programming environment widely used for data analysis and evidence synthesis. All examples can be reproduced on any computer with R (≥ 4.5.1) and the following packages installed: <code>multinma</code>, <code>dplyr</code>, and <code>tibble</code>.</p>
+<p>If you are new to R:</p>
+<ul>
+<li>Download and install R from https://cran.r-project.org.</li>
+<li>(Optional) Install RStudio for an easier coding interface: https://posit.co/download/rstudio/.</li>
+<li>You can install all required packages with:</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"multinma"</span>, <span class="st">"dplyr"</span>, <span class="st">"tibble"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If running this practical on a shared or institutional computer, ensure these packages are available before starting. No special configuration or external data files are needed.</p>
+</section>
+<section id="introduction" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1.2</span> Introduction</h2>
+<p>This exercise helps you familiarize yourself with the principles of indirect and mixed treatment comparisons.<br>
+You’ll use a simple, real-data-inspired example involving <strong>Semaglutide</strong>, <strong>Liraglutide</strong>, and <strong>Placebo</strong>, and visualize the treatment network using the <code>multinma</code> package in R.</p>
+<p>Although the data have been slightly simplified for illustration, the reported treatment effects are based on estimates published in <a href="https://www.nature.com/articles/s41591-025-03978-z"><em>Nature Medicine</em> (2025)</a></p>
+</section>
+<section id="background" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="background"><span class="header-section-number">1.3</span> Background</h2>
+<p>In this example, two clinical trials each compared an active treatment with <strong>Placebo</strong>. We’d like to understand how <strong>Semaglutide</strong> performs relative to <strong>Liraglutide</strong>, even though no head-to-head trial was conducted. We derived the following <strong>contrast-level data</strong> from the published trials:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 17%">
+<col style="width: 21%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Comparison</th>
+<th>Effect Size</th>
+<th>Error Variance</th>
+<th>95% CI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Liraglutide vs Placebo</td>
+<td>4.53</td>
+<td>0.26</td>
+<td>(3.56; 5.55)</td>
+</tr>
+<tr class="even">
+<td>Semaglutide vs Placebo</td>
+<td>10.02</td>
+<td>1.78</td>
+<td>(7.40; 12.63)</td>
+</tr>
+</tbody>
+</table>
+<p>Each effect size represents the mean percentage difference in total body weight loss versus placebo.</p>
+<p>These effect sizes were derived from studies summarized in the Nature Medicine paper cited above. We’ll now use them to estimate the <strong>indirect comparison</strong> between the two active drugs.</p>
+</section>
+</section>
+<section id="hands-on-analysis" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Hands-on Analysis</h1>
+<section id="step-1.-visualizing-the-treatment-network" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="step-1.-visualizing-the-treatment-network"><span class="header-section-number">2.1</span> Step 1. Visualizing the Treatment Network</h2>
+<p>Let’s visualize how these two studies form a (simple) network of interventions.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multinma)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Contrast-level AgD with a reference row per study (y = NA on Placebo)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>agd_contrast <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>studyn,   <span class="sc">~</span>trtn,         <span class="sc">~</span>diff,        <span class="sc">~</span>se_diff,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Study 1"</span>, <span class="st">"Placebo"</span>,        <span class="cn">NA_real_</span>,       <span class="cn">NA_real_</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Study 1"</span>, <span class="st">"Liraglutide"</span>,     <span class="fl">4.53</span>,      <span class="fu">sqrt</span>(<span class="fl">0.26</span>),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Study 2"</span>, <span class="st">"Placebo"</span>,        <span class="cn">NA_real_</span>,       <span class="cn">NA_real_</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Study 2"</span>, <span class="st">"Semaglutide"</span>,    <span class="fl">10.02</span>,     <span class="fu">sqrt</span>(<span class="fl">1.78</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>net <span class="ot">&lt;-</span> <span class="fu">set_agd_contrast</span>(agd_contrast,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">study =</span> studyn,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">trt =</span> trtn,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> diff,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">se =</span> se_diff)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(net, <span class="at">weight_edges =</span> <span class="cn">TRUE</span>, <span class="at">weight_nodes =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ITC_principles_practical_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In this network plot, we can see</p>
+<ul>
+<li>Placebo is the common comparator</li>
+<li>Liraglutide and Semaglutide are connected through Placebo</li>
+</ul>
+</section>
+<section id="step-2.-estimating-the-indirect-comparison" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="step-2.-estimating-the-indirect-comparison"><span class="header-section-number">2.2</span> Step 2. Estimating the Indirect Comparison</h2>
+<p>When two treatments have both been compared to a common control, we can use the <strong>consistency equation</strong> to indirectly compare them:</p>
+<p><span class="math inline">\(\hat{\Delta}_{A,B} = \hat{\Delta}_{A,C} - \hat{\Delta}_{B,C}\)</span></p>
+<p><span class="math inline">\(\text{Var}(\hat{\Delta}_{A,B}) = \text{Var}_{A,C} + \text{Var}_{B,C}\)</span></p>
+<p>Try it yourself:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Effect sizes and variances (based on Nature Medicine 2025 study)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>lira <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">est =</span> <span class="fl">4.53</span>, <span class="at">var =</span> <span class="fl">0.26</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sema <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">est =</span> <span class="fl">10.02</span>, <span class="at">var =</span> <span class="fl">1.78</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Indirect comparison: Semaglutide vs Liraglutide</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>est_indirect <span class="ot">&lt;-</span> sema<span class="sc">$</span>est <span class="sc">-</span> lira<span class="sc">$</span>est</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>var_indirect <span class="ot">&lt;-</span> sema<span class="sc">$</span>var <span class="sc">+</span> lira<span class="sc">$</span>var</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>se_indirect  <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(var_indirect)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 95% Confidence Interval</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>ci <span class="ot">&lt;-</span> est_indirect <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)) <span class="sc">*</span> se_indirect</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You should obtain an effect size of approximately 5.49 in favor of Semaglutide, with a 95% confidence interval of (2.69, 8.29). This means that, based on indirect evidence through placebo, Semaglutide achieves about 5.49% greater mean weight loss than Liraglutide.</p>
+<p>We can fit the same analysis using the <code>multinma</code> package, which adopts a Bayesian estimation framework:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>db_fit_FE <span class="ot">&lt;-</span> <span class="fu">nma</span>(net, </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">trt_effects =</span> <span class="st">"fixed"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">link =</span> <span class="st">"identity"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">relative_effects</span>(db_fit_FE, <span class="at">trt_ref =</span> <span class="st">"Liraglutide"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed caption-top table-sm small">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; empty-cells: hide; border-bottom: hidden;"></th>
+<th colspan="5" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Posterior Summary
+</div></th>
+</tr>
+<tr class="even">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Contrast</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SD</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2.5%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Median</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">97.5%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Placebo vs. Liraglutide</td>
+<td style="text-align: right;">-4.53</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">-5.55</td>
+<td style="text-align: right;">-4.52</td>
+<td style="text-align: right;">-3.55</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Semaglutide vs. Liraglutide</td>
+<td style="text-align: right;">5.32</td>
+<td style="text-align: right;">1.43</td>
+<td style="text-align: right;">2.61</td>
+<td style="text-align: right;">5.34</td>
+<td style="text-align: right;">8.04</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="step-3.-mixed-treatment-comparisons" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="step-3.-mixed-treatment-comparisons"><span class="header-section-number">2.3</span> Step 3. Mixed Treatment Comparisons</h2>
+<p>Now that you have seen how two studies connect through a common comparator, we can extend the idea of an indirect comparison to a mixed treatment comparison (MTC).</p>
+<p>An MTC combines both <strong>direct</strong> and <strong>indirect</strong> evidence across a connected network of trials.<br>
+- <em>Direct evidence</em> comes from head-to-head trials comparing two treatments in the same study.<br>
+- <em>Indirect evidence</em> arises when two treatments are compared through a shared control (e.g., Placebo).</p>
+<p>By “mixing” these sources, we obtain more precise estimates of relative effects across all treatments.</p>
+<p>Consider we now have a third study that directly compares <strong>Semaglutide</strong> and <strong>Liraglutide</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 16%">
+<col style="width: 20%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Comparison</th>
+<th>Effect Size</th>
+<th>Error Variance</th>
+<th>95% CI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Liraglutide vs Placebo</td>
+<td>4.53</td>
+<td>0.26</td>
+<td>(3.56; 5.55)</td>
+</tr>
+<tr class="even">
+<td>Semaglutide vs Placebo</td>
+<td>10.02</td>
+<td>1.78</td>
+<td>(7.40; 12.63)</td>
+</tr>
+<tr class="odd">
+<td>Semaglutide vs Liraglutide</td>
+<td>9.40</td>
+<td>1.65</td>
+<td>(6.88; 11.91)</td>
+</tr>
+</tbody>
+</table>
+<p>We can update our contrast-level data to include this new direct comparison:</p>
+<p><span class="math inline">\(\hat{\Delta}_{A,B, \text{mixed}} = \left(\frac{\hat{\Delta}_{A,B, \text{direct}}}{\text{Var}(\hat{\Delta}_{A,B, \text{direct}})} + \frac{\hat{\Delta}_{A,B, \text{indirect}}}{\text{Var}(\hat{\Delta}_{A,B, \text{indirect}})}\right)  \left(\frac{1}{\text{Var}(\hat{\Delta}_{A,B, \text{direct}})} + \frac{1}{\text{Var}(\hat{\Delta}_{A,B, \text{indirect}})}\right)^{-1}\)</span></p>
+<p><span class="math inline">\(\text{Var}(\hat{\Delta}_{A,B, \text{mixed}}) =  \left(\frac{1}{\text{Var}(\hat{\Delta}_{A,B, \text{direct}})} + \frac{1}{\text{Var}(\hat{\Delta}_{A,B, \text{indirect}})}\right)^{-1}\)</span></p>
+<p>In R, we can derive the mixed effect as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># New direct comparison data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>direct_comp <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">est =</span> <span class="fl">9.40</span>, <span class="at">var =</span> <span class="fl">1.65</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mixed treatment comparison</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>est_mixed <span class="ot">&lt;-</span> (direct_comp<span class="sc">$</span>est <span class="sc">/</span> direct_comp<span class="sc">$</span>var <span class="sc">+</span> est_indirect <span class="sc">/</span> var_indirect) <span class="sc">/</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>               (<span class="dv">1</span> <span class="sc">/</span> direct_comp<span class="sc">$</span>var <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> var_indirect)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>var_mixed <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">/</span> direct_comp<span class="sc">$</span>var <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> var_indirect)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>se_mixed <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(var_mixed)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 95% Confidence Interval</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>ci_mixed <span class="ot">&lt;-</span> est_mixed <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)) <span class="sc">*</span> se_mixed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You should obtain an effect size of approximately 7.65 in favor of Semaglutide, with a 95% confidence interval of (5.78; 9.52).</p>
+<p>We can fit the same analysis using the <code>multinma</code> package:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Updated contrast-level AgD including direct comparison</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>agd_contrast <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>studyn,   <span class="sc">~</span>trtn,         <span class="sc">~</span>diff,        <span class="sc">~</span>se_diff,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Study 1"</span>, <span class="st">"Placebo"</span>,        <span class="cn">NA_real_</span>,       <span class="cn">NA_real_</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Study 1"</span>, <span class="st">"Liraglutide"</span>,     <span class="fl">4.53</span>,      <span class="fu">sqrt</span>(<span class="fl">0.26</span>),</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Study 2"</span>, <span class="st">"Placebo"</span>,        <span class="cn">NA_real_</span>,       <span class="cn">NA_real_</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Study 2"</span>, <span class="st">"Semaglutide"</span>,    <span class="fl">10.02</span>,     <span class="fu">sqrt</span>(<span class="fl">1.78</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Study 3"</span>, <span class="st">"Liraglutide"</span>,     <span class="cn">NA_real_</span>,       <span class="cn">NA_real_</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Study 3"</span>, <span class="st">"Semaglutide"</span>,     <span class="fl">9.40</span>,      <span class="fu">sqrt</span>(<span class="fl">1.65</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>net <span class="ot">&lt;-</span> <span class="fu">set_agd_contrast</span>(agd_contrast,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">study =</span> studyn,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">trt =</span> trtn,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> diff,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">se =</span> se_diff)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>db_fit_FE_mixed <span class="ot">&lt;-</span> <span class="fu">nma</span>(net, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">trt_effects =</span> <span class="st">"fixed"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">link =</span> <span class="st">"identity"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">relative_effects</span>(db_fit_FE_mixed, <span class="at">trt_ref =</span> <span class="st">"Liraglutide"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed caption-top table-sm small">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; empty-cells: hide; border-bottom: hidden;"></th>
+<th colspan="5" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Posterior Summary
+</div></th>
+</tr>
+<tr class="even">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Contrast</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SD</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">2.5%</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Median</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">97.5%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Placebo vs. Liraglutide</td>
+<td style="text-align: right;">-4.26</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">-5.20</td>
+<td style="text-align: right;">-4.26</td>
+<td style="text-align: right;">-3.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Semaglutide vs. Liraglutide</td>
+<td style="text-align: right;">7.58</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">5.77</td>
+<td style="text-align: right;">7.57</td>
+<td style="text-align: right;">9.42</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We can also rank the treatments included in this example according to their estimated effectiveness:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>db_rankprobs <span class="ot">&lt;-</span> <span class="fu">posterior_rank_probs</span>(db_fit_FE_mixed, <span class="at">lower_better =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(db_rankprobs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ITC_principles_practical_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In this figure, we can see that Semaglutide has the highest probability of being the most effective treatment for weight loss, followed by Liraglutide and Placebo. These rankings apply only to the subset of treatments analyzed in this simplified example, not to the full network of interventions reported in the Nature Medicine publication.</p>
+</section>
+</section>
+<section id="going-further" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Going Further</h1>
+<section id="extending-mtc-to-network-meta-analysis" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="extending-mtc-to-network-meta-analysis"><span class="header-section-number">3.1</span> Extending MTC to Network Meta-analysis</h2>
+<p>We can extend the principles of mixed treatment comparisons to a full network meta-analysis (NMA) by incorporating multiple treatments and studies. An NMA allows us to estimate relative effects across a connected network of interventions, even when some treatments have not been directly compared in head-to-head trials.</p>
+<p>This example is discussed in greater detail in our upcoming book chapter, <strong>Principles of meta-analysis and indirect treatment comparisons</strong> <span class="citation" data-cites="debray_principles_2025">(<a href="#ref-debray_principles_2025" role="doc-biblioref">Debray et al. 2026</a>)</span>. It is based on results from a systematic review of randomized controlled trials evaluating pharmacologic treatments for chronic obstructive pulmonary disease (COPD) <span class="citation" data-cites="baker_pharmacologic_2009">(<a href="#ref-baker_pharmacologic_2009" role="doc-biblioref">Baker, Baker, and Coleman 2009</a>)</span>.</p>
+<p>The primary outcome, occurrence of one or more episodes of COPD exacerbation, is binary (yes / no). Five monotherapies – fluticasone, budesonide, salmeterol, formoterol, and tiotropium – and two fixed combinations – fluticasone + salmeterol and budesonide + formoterol – were compared against placebo. The data are available from the R package <code>netmeta</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("netmeta)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(netmeta)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Baker2009)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">study</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">treatment</th>
+<th style="text-align: right;">exac</th>
+<th style="text-align: right;">total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Llewellyn-Jones 1996</td>
+<td style="text-align: right;">1996</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Fluticasone</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Llewellyn-Jones 1996</td>
+<td style="text-align: right;">1996</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Placebo</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Boyd 1997</td>
+<td style="text-align: right;">1997</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Salmeterol</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">229</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Boyd 1997</td>
+<td style="text-align: right;">1997</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Placebo</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">227</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Paggiaro 1998</td>
+<td style="text-align: right;">1998</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Fluticasone</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">142</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Paggiaro 1998</td>
+<td style="text-align: right;">1998</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Placebo</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">139</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Note that in this example we have <strong>arm-level data</strong> rather than contrast-level data. Each row corresponds to a <em>treatment arm</em> within a study, including the number of participants and the number of events for that arm. In contrast, the previous examples used <strong>contrast-level data</strong>, where each row summarized the <em>difference in outcomes</em> between two treatments within the same study. Both data structures can be analyzed in <code>multinma</code>, but arm-level data (as in the <code>Baker2009</code> dataset) are more common in published network meta-analyses and allow for greater modeling flexibility.</p>
+<p>We can now visualize the treatment network:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>net <span class="ot">&lt;-</span> <span class="fu">set_agd_arm</span>(<span class="at">data =</span> Baker2009,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">study =</span> study,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">trt =</span> treatment,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">r =</span> exac,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">n =</span> total)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(net, <span class="at">weight_edges =</span> <span class="cn">TRUE</span>, <span class="at">weight_nodes =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ITC_principles_practical_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In this network plot, we can see how the various treatments connect through multiple studies, with Placebo serving as a common comparator. We can now use the same function calls as before to fit a network meta-analysis model and estimate relative treatment effects across all interventions. However, in this example we will use a <strong>logit link</strong> function, which is more appropriate for binary outcomes, and assume <em>random</em> treatment effects:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fit_COPD <span class="ot">&lt;-</span> <span class="fu">nma</span>(net, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">trt_effects =</span> <span class="st">"random"</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">link =</span> <span class="st">"logit"</span>, <span class="co"># Use logit-link function</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">refresh =</span> <span class="dv">0</span>)    <span class="co"># Suppress MCMC output</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>db_releff_RE <span class="ot">&lt;-</span> <span class="fu">relative_effects</span>(fit_COPD, <span class="at">trt_ref =</span> <span class="st">"Placebo"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(db_releff_RE, <span class="at">ref_line =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ITC_principles_practical_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Among monotherapies, tiotropium demonstrated the highest efficacy, with a pooled odds ratio of 0.69 (95% CrI: 0.62 to 0.77) versus placebo. Among combination therapies, budesonide + formoterol showed the greatest efficacy, with a pooled OR of 0.67 (95% CrI: 0.49 to 0.90).</p>
+</section>
+</section>
+<section id="session-information" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Session information</h1>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>─ Session info ───────────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.5.1 (2025-06-13)
+ os       Ubuntu 24.04.3 LTS
+ system   x86_64, linux-gnu
+ ui       X11
+ language (EN)
+ collate  C.UTF-8
+ ctype    C.UTF-8
+ tz       UTC
+ date     2025-10-30
+ pandoc   3.1.3 @ /usr/bin/ (via rmarkdown)
+ quarto   1.8.25 @ /usr/local/bin/quarto
+
+─ Packages ───────────────────────────────────────────────────────────────────
+ package        * version    date (UTC) lib source
+ abind            1.4-8      2024-09-12 [1] CRAN (R 4.5.1)
+ boot             1.3-31     2024-08-28 [3] CRAN (R 4.5.1)
+ cachem           1.1.0      2024-05-16 [1] CRAN (R 4.5.1)
+ cli              3.6.5      2025-04-23 [1] CRAN (R 4.5.1)
+ codetools        0.2-20     2024-03-31 [3] CRAN (R 4.5.1)
+ colorspace       2.1-2      2025-09-22 [1] CRAN (R 4.5.1)
+ CompQuadForm     1.4.4      2025-07-13 [1] CRAN (R 4.5.1)
+ digest           0.6.37     2024-08-19 [1] CRAN (R 4.5.1)
+ distributional   0.5.0      2024-09-17 [1] CRAN (R 4.5.1)
+ dplyr          * 1.1.4      2023-11-17 [1] CRAN (R 4.5.1)
+ evaluate         1.0.5      2025-08-27 [1] CRAN (R 4.5.1)
+ evd              2.3-7.1    2024-09-21 [1] CRAN (R 4.5.1)
+ farver           2.1.2      2024-05-13 [1] CRAN (R 4.5.1)
+ fastmap          1.2.0      2024-05-15 [1] CRAN (R 4.5.1)
+ forcats          1.0.1      2025-09-25 [1] CRAN (R 4.5.1)
+ generics         0.1.4      2025-05-09 [1] CRAN (R 4.5.1)
+ ggdist           3.3.3      2025-04-23 [1] CRAN (R 4.5.1)
+ ggforce          0.5.0      2025-06-18 [1] CRAN (R 4.5.1)
+ ggplot2          4.0.0      2025-09-11 [1] CRAN (R 4.5.1)
+ ggraph           2.2.2      2025-08-24 [1] CRAN (R 4.5.1)
+ ggrepel          0.9.6      2024-09-07 [1] CRAN (R 4.5.1)
+ glue             1.8.0      2024-09-30 [1] CRAN (R 4.5.1)
+ graphlayouts     1.2.2      2025-01-23 [1] CRAN (R 4.5.1)
+ gridExtra        2.3        2017-09-09 [1] CRAN (R 4.5.1)
+ gtable           0.3.6      2024-10-25 [1] CRAN (R 4.5.1)
+ hms              1.1.4      2025-10-17 [1] CRAN (R 4.5.1)
+ htmltools        0.5.8.1    2024-04-04 [1] CRAN (R 4.5.1)
+ htmlwidgets      1.6.4      2023-12-06 [1] CRAN (R 4.5.1)
+ igraph           2.2.1      2025-10-27 [1] CRAN (R 4.5.1)
+ inline           0.3.21     2025-01-09 [1] CRAN (R 4.5.1)
+ jsonlite         2.0.0      2025-03-27 [1] CRAN (R 4.5.1)
+ kableExtra     * 1.4.0      2024-01-24 [1] CRAN (R 4.5.1)
+ knitr          * 1.50       2025-03-16 [1] CRAN (R 4.5.1)
+ labeling         0.4.3      2023-08-29 [1] CRAN (R 4.5.1)
+ lattice          0.22-7     2025-04-02 [3] CRAN (R 4.5.1)
+ lifecycle        1.0.4      2023-11-07 [1] CRAN (R 4.5.1)
+ lme4             1.1-37     2025-03-26 [1] CRAN (R 4.5.1)
+ loo              2.8.0      2024-07-03 [1] CRAN (R 4.5.1)
+ magic            1.6-1      2022-11-16 [1] CRAN (R 4.5.1)
+ magrittr         2.0.4      2025-09-12 [1] CRAN (R 4.5.1)
+ MASS             7.3-65     2025-02-28 [3] CRAN (R 4.5.1)
+ mathjaxr         1.8-0      2025-04-30 [1] CRAN (R 4.5.1)
+ Matrix           1.7-3      2025-03-11 [3] CRAN (R 4.5.1)
+ matrixStats      1.5.0      2025-01-07 [1] CRAN (R 4.5.1)
+ memoise          2.0.1      2021-11-26 [1] CRAN (R 4.5.1)
+ meta           * 8.2-1      2025-09-01 [1] CRAN (R 4.5.1)
+ metadat        * 1.4-0      2025-02-04 [1] CRAN (R 4.5.1)
+ metafor          4.8-0      2025-01-28 [1] CRAN (R 4.5.1)
+ minqa            1.2.8      2024-08-17 [1] CRAN (R 4.5.1)
+ multinma       * 0.8.1      2025-05-31 [1] CRAN (R 4.5.1)
+ mvtnorm          1.3-3      2025-01-10 [1] CRAN (R 4.5.1)
+ netmeta        * 3.2-0      2025-04-10 [1] CRAN (R 4.5.1)
+ nlme             3.1-168    2025-03-31 [3] CRAN (R 4.5.1)
+ nloptr           2.2.1      2025-03-17 [1] CRAN (R 4.5.1)
+ numDeriv         2016.8-1.1 2019-06-06 [1] CRAN (R 4.5.1)
+ pillar           1.11.1     2025-09-17 [1] CRAN (R 4.5.1)
+ pkgbuild         1.4.8      2025-05-26 [1] CRAN (R 4.5.1)
+ pkgconfig        2.0.3      2019-09-22 [1] CRAN (R 4.5.1)
+ polyclip         1.10-7     2024-07-23 [1] CRAN (R 4.5.1)
+ purrr            1.1.0      2025-07-10 [1] CRAN (R 4.5.1)
+ QuickJSR         1.8.1      2025-09-20 [1] CRAN (R 4.5.1)
+ R6               2.6.1      2025-02-15 [1] CRAN (R 4.5.1)
+ rbibutils        2.3        2024-10-04 [1] CRAN (R 4.5.1)
+ RColorBrewer     1.1-3      2022-04-03 [1] CRAN (R 4.5.1)
+ Rcpp             1.1.0      2025-07-02 [1] CRAN (R 4.5.1)
+ RcppParallel     5.1.11-1   2025-08-27 [1] CRAN (R 4.5.1)
+ Rdpack           2.6.4      2025-04-09 [1] CRAN (R 4.5.1)
+ readr            2.1.5      2024-01-10 [1] CRAN (R 4.5.1)
+ reformulas       0.4.2      2025-10-28 [1] CRAN (R 4.5.1)
+ rlang            1.1.6      2025-04-11 [1] CRAN (R 4.5.1)
+ rmarkdown        2.30       2025-09-28 [1] CRAN (R 4.5.1)
+ rstan            2.32.7     2025-03-10 [1] CRAN (R 4.5.1)
+ rstantools       2.5.0      2025-09-01 [1] CRAN (R 4.5.1)
+ rstudioapi       0.17.1     2024-10-22 [1] CRAN (R 4.5.1)
+ S7               0.2.0      2024-11-07 [1] CRAN (R 4.5.1)
+ scales           1.4.0      2025-04-24 [1] CRAN (R 4.5.1)
+ sessioninfo    * 1.2.3      2025-02-05 [1] any (@1.2.3)
+ StanHeaders      2.32.10    2024-07-15 [1] CRAN (R 4.5.1)
+ stringi          1.8.7      2025-03-27 [1] CRAN (R 4.5.1)
+ stringr          1.5.2      2025-09-08 [1] CRAN (R 4.5.1)
+ survival         3.8-3      2024-12-17 [3] CRAN (R 4.5.1)
+ svglite          2.2.2      2025-10-21 [1] CRAN (R 4.5.1)
+ systemfonts      1.3.1      2025-10-01 [1] CRAN (R 4.5.1)
+ textshaping      1.0.4      2025-10-10 [1] CRAN (R 4.5.1)
+ tibble         * 3.3.0      2025-06-08 [1] CRAN (R 4.5.1)
+ tidygraph        1.3.1      2024-01-30 [1] CRAN (R 4.5.1)
+ tidyr            1.3.1      2024-01-24 [1] CRAN (R 4.5.1)
+ tidyselect       1.2.1      2024-03-11 [1] CRAN (R 4.5.1)
+ truncdist        1.0-2      2016-08-30 [1] CRAN (R 4.5.1)
+ tweenr           2.0.3      2024-02-26 [1] CRAN (R 4.5.1)
+ tzdb             0.5.0      2025-03-15 [1] CRAN (R 4.5.1)
+ vctrs            0.6.5      2023-12-01 [1] CRAN (R 4.5.1)
+ viridis          0.6.5      2024-01-29 [1] CRAN (R 4.5.1)
+ viridisLite      0.4.2      2023-05-02 [1] CRAN (R 4.5.1)
+ withr            3.0.2      2024-10-28 [1] CRAN (R 4.5.1)
+ xfun             0.53       2025-08-19 [1] CRAN (R 4.5.1)
+ xml2             1.4.1      2025-10-27 [1] CRAN (R 4.5.1)
+ yaml             2.3.10     2024-07-26 [1] CRAN (R 4.5.1)
+
+ [1] /home/runner/work/_temp/Library
+ [2] /opt/R/4.5.1/lib/R/site-library
+ [3] /opt/R/4.5.1/lib/R/library
+ * ── Packages attached to the search path.
+
+──────────────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+</div>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-baker_pharmacologic_2009" class="csl-entry" role="listitem">
+Baker, William L., Erica L. Baker, and Craig I. Coleman. 2009. <span>“Pharmacologic <span>Treatments</span> for <span>Chronic Obstructive Pulmonary Disease</span>: <span>A Mixed</span>-<span>Treatment Comparison Meta</span>-Analysis.”</span> <em>Pharmacotherapy: The Journal of Human Pharmacology and Drug Therapy</em> 29 (8): 891–905. <a href="https://doi.org/10.1592/phco.29.8.891">https://doi.org/10.1592/phco.29.8.891</a>.
+</div>
+<div id="ref-debray_principles_2025" class="csl-entry" role="listitem">
+Debray, Thomas P. A., Natalie Dennis, Dimitris Mavridis, Aurélie Bardet, and Sofia Dias. 2026. <span>“Principles of Meta-Analysis and Indirect Treatment Comparisons.”</span> In <em>Comparative Effectiveness and Personalized Medicine Research Using Real-World Data</em>, edited by T. P. A. Debray, T. L. Nguyen, and R. W. Platt. Boca Raton, FL: Taylor &amp; Francis.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
