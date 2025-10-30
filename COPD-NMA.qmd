@@ -53,3 +53,71 @@ The network compares five single-agent treatments—fluticasone, budesonide, sal
 Importantly, the original authors treated the combination therapies as distinct interventions rather than decomposing them into their individual components.
 
 
+## Setting up the Network
+In this vignette we will implement a frequentist NMA using the `netmeta` package. We first convert the arm-level data to contrast-level data using the `pairwise` function:
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+Baker <- pairwise(treat = treatment,
+                  event = exac,
+                  n = total,
+                  studlab = id,
+                  sm = "OR",
+                  data = Baker2009)
+```
+
+In he resulting data frame `Baker`, each row corresponds to a direct comparison between two treatments within a trial, with columns for the treatment names (`treat1`, `treat2`), the log-odds ratio (`TE`), its standard error (`seTE`), and the study label (`studlab`).
+
+## Random-Effects Network Meta-Analysis
+
+We subsequently fit a random-effects model using the `netmeta` function, specifying "Placebo" as the reference treatment:
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+NMA.COPD <- netmeta(TE = TE, seTE = seTE, treat1 = treat1, treat2 = treat2,
+                    studlab = studlab, data = Baker, sm = "OR", ref = "Placebo",
+                    random = TRUE)
+
+netgraph(NMA.COPD)
+```
+
+## Assessing Network Inconsistency
+We can test for local network inconsistency as follows:
+
+```{r}
+#| eval: false
+netsplit(NMA.COPD)
+```
+
+By default, indirect estimates are derived using the back-calculation method. A comparison of direct and indirect treatment effect estimates (depicted as odds ratio) from the random effects network meta-analysis model is given in the table below:
+
+```{r}
+#| echo: false
+SIDES.COPD <- netsplit(NMA.COPD)
+out <- data.frame("comparison" = SIDES.COPD$comparison,
+                  "k" = SIDES.COPD$k,
+             "nma" = sprintf("%.2f",exp(SIDES.COPD$random$TE)), 
+             "direct" = sprintf("%.2f",exp(SIDES.COPD$direct.random$TE)), 
+             "indirect" = sprintf("%.2f",exp(SIDES.COPD$indirect.random$TE)),  
+             "RoR" = sprintf("%.2f",exp(SIDES.COPD$compare.random$TE)),
+             "p.RoR" = sprintf("%.2f",SIDES.COPD$compare.random$p))
+
+# Replacing all NA values with "."
+out <- out %>% 
+  mutate(across(everything(), ~ifelse(.=="NA", ".", .)))
+
+out %>% 
+  kable(
+      align = "lcccccc",
+      booktabs = TRUE,
+      longtable = TRUE,
+      linesep = ""
+    ) %>%
+    kableExtra::kable_styling(
+      latex_options = c("repeat_header"),
+    )
+```
