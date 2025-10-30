@@ -97,6 +97,7 @@ By default, indirect estimates are derived using the back-calculation method. A 
 
 ```{r}
 #| echo: false
+library(dplyr)
 SIDES.COPD <- netsplit(NMA.COPD)
 out <- data.frame("comparison" = SIDES.COPD$comparison,
                   "k" = SIDES.COPD$k,
@@ -120,4 +121,18 @@ out %>%
     kableExtra::kable_styling(
       latex_options = c("repeat_header"),
     )
+```
+
+We can compare both models as follows:
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+NMA.UME <- netmeta(TE = TE, seTE = seTE, treat1 = treat1, treat2 = treat2,
+                    studlab = studlab, data = Baker, sm = "OR", ref = "Placebo",
+                    random = TRUE, UME = TRUE)
+# Extract tau
+tau_RE <- NMA.COPD$tau
+tau_UME <- 
 ```
