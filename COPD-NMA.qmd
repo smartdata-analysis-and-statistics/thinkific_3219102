@@ -104,6 +104,23 @@ tau_consistency <- summary(nma_consistency)$summary %>%
 
 We find the following estimate for tau, the between-study standard deviation: `r round(tau_consistency, 3)`. The DIC for this model is `r round(dic_consistency$dic, 1)`.
 
+To complement the relative treatment effects, we summarize the probability that each treatment ranks among the best options in reducing COPD exacerbations.
+Cumulative rank probabilities provide a visual summary of the likelihood that a given treatment occupies each possible rank position, with higher curves indicating a higher probability of superior performance.
+@fig-rankprobs displays these probabilities for all treatments included in the network meta-analysis, using placebo as the reference.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| label: fig-rankprobs
+#| fig-cap: "Cumulative rank probabilities for treatments in COPD. Each curve represents the probability that a treatment ranks among the top *k* options (lower ranks indicate greater efficacy). Placebo is shown as the reference."
+db_rankprobs <- posterior_rank_probs(nma_consistency, 
+                                     lower_better = TRUE, 
+                                     cumulative = TRUE)
+plot(db_rankprobs)
+```
+
+
 ## Assessing Inconsistency
 To assess local inconsistency, we apply the node-splitting approach to each comparison with both direct and indirect evidence.
 
@@ -115,8 +132,8 @@ nma_inconsistency <- nma(
   net,
   consistency = "ume",
   trt_effects = "random",
-  prior_trt = normal(scale = 10),
-  prior_het = half_normal(scale = 5),
+  prior_trt = normal(scale = 5),
+  prior_het = half_normal(scale = 2.5),
   refresh = 0
 )
 
